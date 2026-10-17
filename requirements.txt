@@ -1,0 +1,1 @@
+# Nenhuma dependência externa. Tkinter acompanha o Python oficial para Windows.
