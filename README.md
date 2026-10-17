@@ -2,6 +2,8 @@
 
 # 🔎 Rey Search
 
+![Rey Search](assets/rey-search-banner.png)
+
 ### Busca rápida, organizada e local em arquivos `.TXT`
 
 **Uma ferramenta desktop para Windows 10/11, feita em Python e Tkinter, com interface roxa e foco em simplicidade.**
@@ -28,6 +30,7 @@ A interface foi construída com **Tkinter**, biblioteca gráfica incluída na di
 - **Opções de correspondência:** ignorar/diferenciar maiúsculas e minúsculas, palavra inteira e expressões regulares (`regex`).
 - **Resultados detalhados:** caminho do arquivo, número da linha, palavras encontradas e conteúdo da linha.
 - **Estatísticas:** arquivos analisados, arquivos com correspondências, ocorrências, erros e tempo decorrido.
+- **Dashboard visual:** cards de métricas, status de busca e identidade visual profissional.
 - **Interface responsiva:** busca executada em thread separada, com botão para solicitar cancelamento.
 - **Logs em tempo real:** mensagens coloridas por nível e arquivo diário em `logs/reysearch_AAAA-MM-DD.log`.
 - **Exportação:** salve os resultados como TXT, CSV ou JSON.
@@ -91,6 +94,13 @@ Cada palavra-chave é testada separadamente. Se uma linha corresponder a mais de
 
 ## 🧰 Gerar um executável `.EXE`
 
+O projeto possui GitHub Actions configurado. Cada push em `main` gera automaticamente o executável e um ZIP na aba **Actions → Artifacts**. Ao criar uma tag `v*`, o workflow também publica uma GitHub Release.
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 Para distribuir o aplicativo sem pedir que o usuário instale Python, use o [PyInstaller](https://pyinstaller.org/).
 
 ### Instale o PyInstaller
@@ -104,7 +114,7 @@ python -m pip install pyinstaller
 Execute na pasta que contém `main.py`:
 
 ```powershell
-python -m PyInstaller --noconfirm --clean --windowed --name "Rey Search" main.py
+python -m PyInstaller --noconfirm --clean --onefile --windowed --name "Rey Search" --icon "assets\rey-search.ico" --add-data "assets;assets" main.py
 ```
 
 O resultado será criado dentro da pasta `dist`. Esse modo gera uma pasta com o executável e os componentes necessários.
@@ -112,7 +122,7 @@ O resultado será criado dentro da pasta `dist`. Esse modo gera uma pasta com o 
 ### Gere um único arquivo EXE
 
 ```powershell
-python -m PyInstaller --noconfirm --clean --onefile --windowed --name "Rey Search" main.py
+python -m PyInstaller --noconfirm --clean --onefile --windowed --name "Rey Search" --icon "assets\rey-search.ico" --add-data "assets;assets" main.py
 ```
 
 O arquivo único ficará em `dist\Rey Search.exe`.
@@ -127,6 +137,8 @@ rey-search/
 ├── ui.py               # Interface gráfica e interação com o usuário
 ├── search_engine.py    # Motor de busca e processamento dos TXT
 ├── logger.py           # Logs para arquivo e interface
+├── assets/              # Logo, banner e ícone Windows
+├── .github/workflows/   # Build automático do EXE
 ├── requirements.txt    # Dependências externas (nenhuma)
 ├── README.md           # Documentação do projeto
 └── logs/
@@ -154,7 +166,7 @@ Se um arquivo não puder ser lido, o caminho e o erro serão registrados e o pro
 - Limite configurável de resultados.
 - Navegação entre ocorrências e destaque da palavra encontrada.
 - Testes automatizados para os modos de busca.
-- Ícone `.ico` e instalador do Windows.
+- Instalador assinado do Windows.
 
 ## 🤝 Contribuições
 
